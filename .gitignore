@@ -38,11 +38,11 @@ proguard/
 *.log
 
 # Android Studio
-/*/build/
-/*/local.properties
-/*/out
-/*/*/build
-/*/*/production
+/android/*/build/
+/android/*/local.properties
+/android/*/out
+/android/*/*/build
+/android/*/*/production
 captures/
 .navigation/
 *.ipr
@@ -61,7 +61,7 @@ obj/
 # IntelliJ IDEA
 *.iml
 *.iws
-/out/
+/android/out/
 
 # User-specific configurations
 .idea/caches/
