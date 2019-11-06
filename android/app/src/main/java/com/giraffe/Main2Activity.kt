@@ -3,10 +3,10 @@ package com.giraffe
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MapActivity : AppCompatActivity() {
+class Main2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_main2)
     }
 }
