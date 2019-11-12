@@ -44,7 +44,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         viewHolder.itemView.setOnClickListener { v: View  ->
             if (viewHolder.Title.text == "Classroom")
             {
-                val intent = Intent( viewHolder.itemView.context, MapActivity::class.java)
+                val intent = Intent( viewHolder.itemView.context, SelectActivity::class.java)
                 val title = viewHolder.Title.text
                 val detail = viewHolder.Detail.text
                 intent.putExtra("title", title)
