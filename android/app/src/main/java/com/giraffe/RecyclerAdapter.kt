@@ -45,12 +45,20 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
             if (viewHolder.Title.text == "Classroom")
             {
                 val intent = Intent( viewHolder.itemView.context, MapActivity::class.java)
+                val title = viewHolder.Title.text
+                val detail = viewHolder.Detail.text
+                intent.putExtra("title", title)
+                intent.putExtra("detail", detail)
                 viewHolder.itemView.context.startActivity(intent)
             }
             else {
                 val intent = Intent( viewHolder.itemView.context, EmptyActivity::class.java)
                 val message = "Development in progress"
+                val title = viewHolder.Title.text
+                val detail = viewHolder.Detail.text
                 intent.putExtra("message", message)
+                intent.putExtra("title", title)
+                intent.putExtra("detail", detail)
                 viewHolder.itemView.context.startActivity(intent)
             }
         }
