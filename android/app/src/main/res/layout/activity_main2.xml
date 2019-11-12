@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/white" />
+        app:srcCompat="@drawable/green" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/white" />
+        app:srcCompat="@drawable/green" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/white" />
+        app:srcCompat="@drawable/green" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -60,5 +60,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/white" />
+        app:srcCompat="@drawable/green" />
 </androidx.constraintlayout.widget.ConstraintLayout>
