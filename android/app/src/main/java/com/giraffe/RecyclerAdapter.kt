@@ -44,7 +44,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         viewHolder.itemView.setOnClickListener { v: View  ->
             if (viewHolder.Title.text == "Classroom")
             {
-                val intent = Intent( viewHolder.itemView.context, Main2Activity::class.java)
+                val intent = Intent( viewHolder.itemView.context, MapActivity::class.java)
                 viewHolder.itemView.context.startActivity(intent)
             }
             else {
