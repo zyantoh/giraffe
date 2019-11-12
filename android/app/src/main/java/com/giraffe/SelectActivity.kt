@@ -30,7 +30,7 @@ class SelectActivity : AppCompatActivity() {
         }
         val button2 = findViewById<Button>(R.id.button2)
         button2.setOnClickListener {
-            val intent = Intent( this, MapActivity::class.java)
+            val intent = Intent( this, OrderActivity::class.java)
             intent.putExtra("title", title.text)
             intent.putExtra("detail", detail.text)
             this.startActivity(intent)
