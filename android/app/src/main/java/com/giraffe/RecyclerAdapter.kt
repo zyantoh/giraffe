@@ -1,5 +1,6 @@
 package com.giraffe
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     private val images = intArrayOf(R.drawable.download, R.drawable.download,
         R.drawable.download, R.drawable.download, R.drawable.download)
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var Image: ImageView
         var Title: TextView
@@ -39,6 +40,20 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         viewHolder.Title.text = titles[i]
         viewHolder.Detail.text = details[i]
         viewHolder.Image.setImageResource(images[i])
+
+        viewHolder.itemView.setOnClickListener { v: View  ->
+            if (viewHolder.Title.text == "Classroom")
+            {
+                val intent = Intent( viewHolder.itemView.context, Main2Activity::class.java)
+                viewHolder.itemView.context.startActivity(intent)
+            }
+            else {
+                val intent = Intent( viewHolder.itemView.context, EmptyActivity::class.java)
+                val message = "Development in progress"
+                intent.putExtra("message", message)
+                viewHolder.itemView.context.startActivity(intent)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
