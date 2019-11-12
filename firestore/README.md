@@ -6,20 +6,19 @@ format very similar to JSON.
 ```json
 {
     "collections": {
-        "canteens": [
-            {
-                "name": "Food Club",
+        "canteens": {
+            "Food Club": {
                 "location": "Blk 22",
-                "tables": [
-                    {
+                "tables": {
+                    "table_1234": {
                         "type": "long",
                         "x": 123,
                         "y": 123,
                         "isTaken": "NO"
                     }
-                ]
+                }
             }
-        ]
+        }
     }
 }
 ```
