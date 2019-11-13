@@ -3,16 +3,7 @@ package com.giraffe.database
 interface DbDocument {
     fun collection(name: String): DbCollection
 
-    fun get(
-        successCallback: (Map<String, Any>?) -> Unit,
-        failureCallback: (Exception) -> Unit,
-        canceledCallback: () -> Unit
-    )
+    suspend fun get(): Map<String, Any>?
 
-    fun set(
-        data: Any,
-        successCallback: () -> Unit,
-        failureCallback: (Exception) -> Unit,
-        canceledCallback: () -> Unit
-    )
+    suspend fun set(data: Any)
 }

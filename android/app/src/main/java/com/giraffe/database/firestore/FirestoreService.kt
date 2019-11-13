@@ -5,7 +5,7 @@ import com.giraffe.database.DbCollection
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FirestoreService(private val appName: String) : DatabaseService {
+class FirestoreService(appName: String) : DatabaseService {
     private val firestore = FirebaseFirestore.getInstance(FirebaseApp.getInstance(appName))
 
     override fun collection(name: String): DbCollection =

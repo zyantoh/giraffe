@@ -3,32 +3,17 @@ package com.giraffe.database.firestore
 import com.giraffe.database.DbCollection
 import com.giraffe.database.DbDocument
 import com.google.firebase.firestore.DocumentReference
+import kotlinx.coroutines.tasks.await
 
 class FirestoreDocument(private val firestoreDocument: DocumentReference) : DbDocument {
     override fun collection(name: String): DbCollection = FirestoreCollection(firestoreDocument.collection(name))
 
-    override fun get(
-        successCallback: (Map<String, Any>?) -> Unit,
-        failureCallback: (Exception) -> Unit,
-        canceledCallback: () -> Unit
-    ) {
-        firestoreDocument.get()
-            .addOnSuccessListener{
-                successCallback(it.data)
-            }
-            .addOnFailureListener(failureCallback)
-            .addOnCanceledListener(canceledCallback)
+    override suspend fun get(): Map<String, Any>? {
+        val snapshot = firestoreDocument.get().await()
+        return snapshot.data
     }
 
-    override fun set(
-        data: Any,
-        successCallback: () -> Unit,
-        failureCallback: (Exception) -> Unit,
-        canceledCallback: () -> Unit
-    ) {
-        firestoreDocument.set(data)
-            .addOnSuccessListener{ successCallback() }
-            .addOnFailureListener(failureCallback)
-            .addOnCanceledListener(canceledCallback)
+    override suspend fun set(data: Any) {
+        firestoreDocument.set(data).await()
     }
 }
