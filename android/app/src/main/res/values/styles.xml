@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- List item styles -->
+    <style name="ListItemTitle">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/sizePrimaryText</item>
+    </style>
+
+    <style name="ListItemSubTitle">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/sizeSecondaryText</item>
+    </style>
 </resources>
