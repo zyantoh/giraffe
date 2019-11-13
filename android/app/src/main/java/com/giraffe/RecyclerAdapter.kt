@@ -6,27 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    private val titles = arrayOf("Classroom", "Food Club", "Poolside", "Makan Place", "Munch")
+    private val titles = arrayOf("Food Club", "Poolside", "Makan Place", "Munch")
 
-    private val details = arrayOf("Blk 31", "Blk 22", "Blk 18", "Blk 51", "Blk 73")
+    private val details = arrayOf("Blk 22", "Blk 18", "Blk 51", "Blk 73")
 
-    private val images = intArrayOf(R.drawable.download, R.drawable.download,
-        R.drawable.download, R.drawable.download, R.drawable.download)
+    private val images = intArrayOf(R.drawable.fc, R.drawable.poolside,
+        R.drawable.makanplace, R.drawable.munch)
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        var cv: CardView
         var Image: ImageView
         var Title: TextView
         var Detail: TextView
 
         init {
-            Image = itemView.findViewById(R.id.imageView)
-            Title = itemView.findViewById(R.id.textView)
-            Detail = itemView.findViewById(R.id.textView2)
+            cv = itemView.findViewById(R.id.cv)
+            Image = cv.findViewById(R.id.imageView)
+            Title = cv.findViewById(R.id.textView)
+            Detail = cv.findViewById(R.id.textView2)
         }
     }
 
@@ -41,8 +44,8 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         viewHolder.Detail.text = details[i]
         viewHolder.Image.setImageResource(images[i])
 
-        viewHolder.itemView.setOnClickListener { v: View  ->
-            if (viewHolder.Title.text == "Classroom")
+        viewHolder.cv.setOnClickListener { v: View  ->
+            if (viewHolder.Title.text == "Food Club" || viewHolder.Title.text == "Poolside")
             {
                 val intent = Intent( viewHolder.itemView.context, SelectActivity::class.java)
                 val title = viewHolder.Title.text
