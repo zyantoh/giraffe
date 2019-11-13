@@ -24,5 +24,8 @@
         <argument
             android:name="thumbnail"
             app:argType="string" />
+        <argument
+            android:name="totalTables"
+            app:argType="long" />
     </fragment>
 </navigation>
