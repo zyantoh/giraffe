@@ -1,5 +1,6 @@
 package com.giraffe.database.firestore
 
+import androidx.lifecycle.MutableLiveData
 import com.giraffe.database.DbCollection
 import com.giraffe.database.DbDocument
 import com.google.firebase.firestore.DocumentReference
@@ -15,5 +16,16 @@ class FirestoreDocument(private val firestoreDocument: DocumentReference) : DbDo
 
     override suspend fun set(data: Any) {
         firestoreDocument.set(data).await()
+    }
+
+    override fun watch(): MutableLiveData<Map<String, Any>> {
+        val liveData = MutableLiveData<Map<String, Any>>()
+        firestoreDocument.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+            if (documentSnapshot!!.data != null) {
+                liveData.postValue(documentSnapshot.data)
+            }
+        }
+
+        return liveData
     }
 }
