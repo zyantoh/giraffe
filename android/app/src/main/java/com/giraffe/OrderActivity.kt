@@ -2,9 +2,12 @@ package com.giraffe
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import kotlinx.android.synthetic.main.layout_orderitem.*
 
 class OrderActivity : AppCompatActivity() {
 
@@ -28,15 +31,40 @@ class OrderActivity : AppCompatActivity() {
 //            </string-array>
 //        </resources>
 
-        val stalls = arrayOf("Black tv", "Whiteboard")
-        val blacktv1 = arrayOf("Aquarius", "Milo", "100plus", "Plain water")
-        val blacktv2 = arrayOf("$1.80", "$1.20", "$1.60", "$0.90")
-        val whiteboard1 = arrayOf("Oreo", "Famous Amos Cookie", "Subway Cookie", "Brownies")
-        val whiteboard2 = arrayOf("$3.00", "$1.00", "$1.50", "$2.00")
+        val dishTitle: TextView
+        dishTitle = findViewById(R.id.dishtitle)
+        val dishDesc: TextView
+        dishDesc = findViewById(R.id.dishdesc)
+        val dishPrice: TextView
+        dishPrice = findViewById(R.id.dishprice)
+
+        val stalls = arrayOf("Japanese",
+                            "Ban Mian / Fish Soup",
+                            "Mala Hotpot",
+                            "Econ Rice",
+                            "Pastry",
+                            "Western",
+                            "Canopy Coffee Club",
+                            "Asian Delight",
+                            "Salad Bar",
+                            "Chicken Rice",
+                            "Korean",
+                            "Yogurt",
+                            "Indonesian")
+
+        val japanesedishes = arrayOf(FoodItem("Chicken Curry Rice", "Rice with Japanese Curry topped with chicken cutlets", 4.0),
+                                     FoodItem("Pork Curry Rice", "Rice with Japanese Curry topped with pork cutlets", 4.5),
+                                     FoodItem("Omelette Rice", "Rice with Japanese Curry topped with omelette", 3.5))
+
+        val banmaindishes = arrayOf(FoodItem("Ban Mian", "Dough noodles dipped in soup",3.5),
+                                    FoodItem("U-Mian", "Thin dough noodles dipped in soup",3.5),
+                                    FoodItem("Fish Soup", "Soup containing fish",3.0))
+
         val spinner: Spinner = findViewById(R.id.spinner)
         val dataAdapter = ArrayAdapter<String>(
             this,
-            android.R.layout.simple_spinner_item, stalls
+            android.R.layout.simple_spinner_item,
+            stalls
         )
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.setAdapter(dataAdapter)
@@ -44,5 +72,37 @@ class OrderActivity : AppCompatActivity() {
 //        fun addListenerOnSpinnerItemSelection() {
 //            spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 //        }
+
+
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                if (stalls[position] == "Japanese")
+                {
+                    for (item in japanesedishes)
+                    {
+                        dishTitle.text = item.dish
+                        dishDesc.text = item.description
+                        dishPrice.text = "$" + item.price.toString()
+                    }
+                }
+                if (stalls[position] == "Ban Mian / Fish Soup")
+                {
+                    for (item in banmaindishes)
+                    {
+                        dishTitle.text = item.dish
+                        dishDesc.text = item.description
+                        dishPrice.text = "$" + item.price.toString()
+                    }
+                }
+            }
+        }
+
+
     }
 }
