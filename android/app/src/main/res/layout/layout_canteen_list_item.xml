@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ConstraintLayout"
+    android:id="@+id/canteen_list_item_constraintlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/listItemPadding">
@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/image_text_space"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Hello"
             app:layout_constraintBottom_toTopOf="@id/location_text_view"
             style="@style/ListItemTitle" />
 
@@ -35,7 +34,6 @@
             android:id="@+id/location_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="There"
             app:layout_constraintStart_toEndOf="@id/image_text_space"
             app:layout_constraintTop_toBottomOf="@id/name_text_view"
             app:layout_constraintVertical_chainStyle="spread_inside" />

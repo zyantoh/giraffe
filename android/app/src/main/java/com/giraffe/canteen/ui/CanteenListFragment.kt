@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.giraffe.R
@@ -44,8 +45,12 @@ class CanteenListFragment : Fragment() {
         val viewManager = LinearLayoutManager(context)
         // Start with no elements, update later when the data is ready
         val viewAdapter = CanteenListAdapter(listOf()) {
-            val canteenName = it.findViewById<TextView>(R.id.name_text_view)
-            // TODO: Go to activity
+            // Navigate to canteen fragment
+            val args = Bundle()
+            args.putString("name", it.name)
+            args.putString("location", it.location)
+            args.putString("thumbnail", it.thumbnailUri.toString())
+            findNavController().navigate(R.id.action_canteenListFragment_to_canteenFragment, args)
         }
 
         // Set an observer on the canteen list LiveData for when the data is ready

@@ -6,5 +6,23 @@
     <fragment
         android:id="@+id/canteenListFragment"
         android:name="com.giraffe.canteen.ui.CanteenListFragment"
-        android:label="CanteenListFragment" />
+        android:label="CanteenListFragment" >
+        <action
+            android:id="@+id/action_canteenListFragment_to_canteenFragment"
+            app:destination="@id/canteenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/canteenFragment"
+        android:name="com.giraffe.canteen.ui.CanteenFragment"
+        android:label="CanteenFragment" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="location"
+            app:argType="string" />
+        <argument
+            android:name="thumbnail"
+            app:argType="string" />
+    </fragment>
 </navigation>
