@@ -13,15 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.giraffe.R
 import com.giraffe.canteen.data.CanteenRepository
 import com.giraffe.canteen.model.Canteen
-import com.giraffe.database.DatabaseService
-import com.giraffe.storage.StorageService
 import kotlinx.android.synthetic.main.fragment_canteen_list.*
+import org.koin.android.ext.android.inject
 
-class CanteenListFragment(
-    databaseService: DatabaseService,
-    storageService: StorageService
-) : Fragment() {
-    private val canteenRepository = CanteenRepository(databaseService, storageService)
+class CanteenListFragment : Fragment() {
+    private val canteenRepository: CanteenRepository by inject()
     private lateinit var canteenListViewModel: CanteenListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
