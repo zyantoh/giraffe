@@ -31,13 +31,6 @@ class OrderActivity : AppCompatActivity() {
 //            </string-array>
 //        </resources>
 
-        val dishTitle: TextView
-        dishTitle = findViewById(R.id.dishtitle)
-        val dishDesc: TextView
-        dishDesc = findViewById(R.id.dishdesc)
-        val dishPrice: TextView
-        dishPrice = findViewById(R.id.dishprice)
-
         val stalls = arrayOf("Japanese",
                             "Ban Mian / Fish Soup",
                             "Mala Hotpot",
@@ -52,13 +45,7 @@ class OrderActivity : AppCompatActivity() {
                             "Yogurt",
                             "Indonesian")
 
-        val japanesedishes = arrayOf(FoodItem("Chicken Curry Rice", "Rice with Japanese Curry topped with chicken cutlets", 4.0),
-                                     FoodItem("Pork Curry Rice", "Rice with Japanese Curry topped with pork cutlets", 4.5),
-                                     FoodItem("Omelette Rice", "Rice with Japanese Curry topped with omelette", 3.5))
 
-        val banmaindishes = arrayOf(FoodItem("Ban Mian", "Dough noodles dipped in soup",3.5),
-                                    FoodItem("U-Mian", "Thin dough noodles dipped in soup",3.5),
-                                    FoodItem("Fish Soup", "Soup containing fish",3.0))
 
         val spinner: Spinner = findViewById(R.id.spinner)
         val dataAdapter = ArrayAdapter<String>(
@@ -69,18 +56,19 @@ class OrderActivity : AppCompatActivity() {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.setAdapter(dataAdapter)
 
-//        fun addListenerOnSpinnerItemSelection() {
-//            spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-//        }
-
-
-
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                val dishTitle: TextView
+                dishTitle = findViewById(R.id.dishtitle)
+                val dishDesc: TextView
+                dishDesc = findViewById(R.id.dishdesc)
+                val dishPrice: TextView
+                dishPrice = findViewById(R.id.dishprice)
 
                 if (stalls[position] == "Japanese")
                 {
@@ -102,7 +90,6 @@ class OrderActivity : AppCompatActivity() {
                 }
             }
         }
-
 
     }
 }
