@@ -26,8 +26,6 @@ class MapActivity : AppCompatActivity() {
         image2 = findViewById(R.id.imageView3)
         val image3: ImageView
         image3 = findViewById(R.id.imageView4)
-        val image4: ImageView
-        image4 = findViewById(R.id.imageView5)
-        //image4.setImageResource(R.drawable.red)
+        //image3.setImageResource(R.drawable.red)
     }
 }
