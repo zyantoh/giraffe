@@ -2,25 +2,22 @@ package com.giraffe
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
+import com.giraffe.canteen.ui.CanteenListFragment
+import com.giraffe.database.firestore.FirestoreService
+import com.giraffe.storage.firebase.FirebaseStorageService
 
 class MainActivity : AppCompatActivity() {
-
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
+    private val databaseService = FirestoreService("[DEFAULT]")
+    private val storageService = FirebaseStorageService("gs://giraffe-1.appspot.com")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val mainFragment = CanteenListFragment(databaseService, storageService)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment, mainFragment, mainFragment.tag)
+            .commit()
+
         setContentView(R.layout.activity_main)
-
-        layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-
-        adapter = RecyclerAdapter()
-        recyclerView.adapter = adapter
     }
 }
