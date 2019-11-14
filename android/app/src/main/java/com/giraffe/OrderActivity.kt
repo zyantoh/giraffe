@@ -7,13 +7,27 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_order.*
 import kotlinx.android.synthetic.main.layout_orderitem.*
 
 class OrderActivity : AppCompatActivity() {
 
+    private var layoutManager: RecyclerView.LayoutManager? = null
+    private var adapter: RecyclerView.Adapter<OrderAdapter.ViewHolder>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
+        //setContentView(R.layout.layout_orderitem)
+
+        layoutManager = LinearLayoutManager(this)
+        rv_order.layoutManager = layoutManager
+
+        adapter = OrderAdapter()
+        rv_order.adapter = adapter
 
         val retrieve1 = intent.getStringExtra("title")
         val title: TextView
@@ -55,7 +69,7 @@ class OrderActivity : AppCompatActivity() {
         )
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.setAdapter(dataAdapter)
-
+/*
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -90,6 +104,6 @@ class OrderActivity : AppCompatActivity() {
                 }
             }
         }
-
+*/
     }
 }
