@@ -52,6 +52,7 @@ class CanteenFragment : Fragment() {
         occupancy_text_view.text = resources.getString(R.string.loading)
 
         canteenViewModel.canteenOccupancy.observe(this, Observer<Long> {
+            occupancy_progressbar.progress = (it*100/totalTables).toInt()
             occupancy_text_view.text = resources.getString(R.string.occupancy, it, totalTables)
         })
     }
