@@ -9,6 +9,8 @@ format very similar to JSON.
         "canteens": {
             "Food Club": {
                 "location": "Blk 22",
+                "totalTables": 4,
+                "occupiedTables": 4,
                 "tables": {
                     "table_1234": {
                         "type": "long",
