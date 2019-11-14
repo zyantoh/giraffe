@@ -2,6 +2,8 @@ package com.giraffe.canteen.data
 
 import androidx.lifecycle.*
 import com.giraffe.canteen.model.Canteen
+import com.giraffe.canteen.model.Table
+import com.giraffe.canteen.model.TableStatus
 import com.giraffe.database.DatabaseService
 import com.giraffe.storage.StorageService
 
@@ -22,6 +24,14 @@ class CanteenRepository(
         }
     }
 
+    suspend fun getTableIds(canteenName: String): List<String> {
+        val tableDocuments = databaseService
+            .collection("canteens")
+            .document(canteenName)
+            .collection("tables")
+            .get()
+        return tableDocuments.map { it.id }
+    }
 
     fun watchCanteenOccupancy(
         canteenName: String
@@ -29,6 +39,30 @@ class CanteenRepository(
         val document = databaseService.collection("canteens").document(canteenName).watch()
         return Transformations.map(document) {
             it["occupiedTables"] as Long
+        }
+    }
+
+    fun watchCanteenTable(
+        canteenName: String,
+        tableId: String
+    ): LiveData<Table> {
+        val document = databaseService
+            .collection("canteens")
+            .document(canteenName)
+            .collection("tables")
+            .document(tableId)
+            .watch()
+
+        return Transformations.map(document) {
+            val tableStatus = TableStatus.valueOf(it["isTaken"] as String)
+            Table(
+                tableId,
+                it["type"] as String,
+                tableStatus,
+                // TODO: Add coordinates
+                0,
+                0
+            )
         }
     }
 }

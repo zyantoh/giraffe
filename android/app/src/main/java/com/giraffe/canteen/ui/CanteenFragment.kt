@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.giraffe.R
 import com.giraffe.canteen.data.CanteenRepository
@@ -39,6 +40,7 @@ class CanteenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Setup the progress bar
         val name = arguments!!.getString("name")!!
         val location = arguments!!.getString("location")!!
         val thumbnail = Uri.parse(arguments!!.getString("thumbnail")!!)
@@ -55,5 +57,10 @@ class CanteenFragment : Fragment() {
             occupancy_progressbar.progress = (it*100/totalTables).toInt()
             occupancy_text_view.text = resources.getString(R.string.occupancy, it, totalTables)
         })
+
+        // Set the button on click listener
+        view_map_button.setOnClickListener {
+            findNavController().navigate(R.id.action_canteenFragment_to_canteenMapFragment, arguments)
+        }
     }
 }

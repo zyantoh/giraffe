@@ -27,5 +27,19 @@
         <argument
             android:name="totalTables"
             app:argType="long" />
+        <action
+            android:id="@+id/action_canteenFragment_to_canteenMapFragment"
+            app:destination="@id/canteenMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/canteenMapFragment"
+        android:name="com.giraffe.canteen.ui.CanteenMapFragment"
+        android:label="CanteenMapFragment" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="location"
+            app:argType="string" />
     </fragment>
 </navigation>

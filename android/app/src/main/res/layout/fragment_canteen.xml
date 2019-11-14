@@ -61,4 +61,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/occupancy_progressbar"
         app:layout_constraintBottom_toBottomOf="@id/occupancy_progressbar" />
+
+    <Button
+        android:id="@+id/view_map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_map"
+        app:layout_constraintTop_toBottomOf="@id/occupancy_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/view_stalls_button" />
+
+    <Button
+        android:id="@+id/view_stalls_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/occupancy_text_view"
+        app:layout_constraintStart_toEndOf="@id/view_map_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/button_stalls" />
 </androidx.constraintlayout.widget.ConstraintLayout>

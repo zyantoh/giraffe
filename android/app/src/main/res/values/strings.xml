@@ -2,4 +2,6 @@
     <string name="app_name">Giraffe</string>
     <string name="loading">Loading...</string>
     <string name="occupancy">%1$d/%2$d</string>
+    <string name="button_map">Map</string>
+    <string name="button_stalls">Stalls</string>
 </resources>

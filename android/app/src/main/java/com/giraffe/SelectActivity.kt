@@ -22,12 +22,7 @@ class SelectActivity : AppCompatActivity() {
         detail.setText(retrieve2)
 
         val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
-            val intent = Intent( this, MapActivity::class.java)
-            intent.putExtra("title", title.text)
-            intent.putExtra("detail", detail.text)
-            this.startActivity(intent)
-        }
+        // Goes to map activity
         val button2 = findViewById<Button>(R.id.button2)
         button2.setOnClickListener {
             val intent = Intent( this, OrderActivity::class.java)
@@ -35,12 +30,7 @@ class SelectActivity : AppCompatActivity() {
             intent.putExtra("detail", detail.text)
             this.startActivity(intent)
         }
+        // Goes to MapActivity
         val button3 = findViewById<Button>(R.id.button3)
-        button3.setOnClickListener {
-            val intent = Intent( this, MapActivity::class.java)
-            intent.putExtra("title", title.text)
-            intent.putExtra("detail", detail.text)
-            this.startActivity(intent)
-        }
     }
 }
