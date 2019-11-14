@@ -1,5 +1,6 @@
 package com.giraffe.canteen.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.giraffe.canteen.data.CanteenRepository
@@ -17,10 +18,14 @@ class CanteenListViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val canteenList = MutableLiveData<List<Canteen>>()
+    val canteenOccupancy = mutableListOf<LiveData<Long>>()
 
     init {
         uiScope.launch {
             val canteens = canteenRepository.getCanteenDetails()
+            canteens.forEach {
+                canteenOccupancy.add(canteenRepository.watchCanteenOccupancy(it.name))
+            }
             canteenList.postValue(canteens)
         }
     }

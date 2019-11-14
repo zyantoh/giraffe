@@ -44,7 +44,7 @@ class CanteenListFragment : Fragment() {
         // Prepare for canteen list RecyclerView
         val viewManager = LinearLayoutManager(context)
         // Start with no elements, update later when the data is ready
-        val viewAdapter = CanteenListAdapter(listOf()) {
+        val viewAdapter = CanteenListAdapter(this, context!!, listOf(), canteenListViewModel.canteenOccupancy) {
             // Navigate to canteen fragment
             val args = Bundle()
             args.putString("name", it.name)
@@ -56,7 +56,7 @@ class CanteenListFragment : Fragment() {
 
         // Set an observer on the canteen list LiveData for when the data is ready
         canteenListViewModel.canteenList.observe(this, Observer<List<Canteen>>{
-            viewAdapter.setCanteens(it)
+            viewAdapter.setCanteens(it, canteenListViewModel.canteenOccupancy)
         })
 
         canteen_list_recycler_view.apply {

@@ -12,7 +12,7 @@
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/name_text_view"
-            app:layout_constraintBottom_toBottomOf="@id/location_text_view" />
+            app:layout_constraintBottom_toBottomOf="@id/occupancy_progressbar" />
 
         <Space
             android:id="@+id/image_text_space"
@@ -36,5 +36,32 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/image_text_space"
             app:layout_constraintTop_toBottomOf="@id/name_text_view"
+            app:layout_constraintBottom_toTopOf="@id/occupancy_progressbar" />
+
+        <ProgressBar
+            android:id="@+id/occupancy_progressbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            app:layout_constraintStart_toEndOf="@id/image_text_space"
+            app:layout_constraintEnd_toStartOf="@id/progress_occupancy_space"
+            app:layout_constraintTop_toBottomOf="@id/location_text_view"
             app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <Space
+            android:id="@+id/progress_occupancy_space"
+            android:layout_width="@dimen/contentMargin"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toEndOf="@id/occupancy_progressbar"
+            app:layout_constraintEnd_toStartOf="@id/occupancy_text_view"
+            app:layout_constraintTop_toTopOf="@id/occupancy_progressbar" />
+
+        <TextView
+            android:id="@+id/occupancy_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/progress_occupancy_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/occupancy_progressbar"
+            app:layout_constraintBottom_toBottomOf="@id/occupancy_progressbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

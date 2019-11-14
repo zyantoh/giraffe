@@ -28,7 +28,7 @@ class CanteenRepository(
     ): LiveData<Long> {
         val document = databaseService.collection("canteens").document(canteenName).watch()
         return Transformations.map(document) {
-            it.get("occupiedTables") as Long
+            it["occupiedTables"] as Long
         }
     }
 }
