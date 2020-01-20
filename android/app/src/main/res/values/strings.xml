@@ -4,4 +4,7 @@
     <string name="occupancy">%1$d/%2$d</string>
     <string name="button_map">Map</string>
     <string name="button_stalls">Stalls</string>
+
+    <string name="main_menu_home">Home</string>
+    <string name="main_menu_canteens">Canteens</string>
 </resources>

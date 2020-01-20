@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
-    app:startDestination="@id/canteenListFragment">
-
+    app:startDestination="@id/favouritesFragment">
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.giraffe.favourites.FavouritesFragment"
+        android:label="FavouritesFragment" >
+    </fragment>
     <fragment
         android:id="@+id/canteenListFragment"
         android:name="com.giraffe.canteen.ui.CanteenListFragment"
