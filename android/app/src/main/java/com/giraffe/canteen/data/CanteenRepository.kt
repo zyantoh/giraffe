@@ -19,7 +19,8 @@ class CanteenRepository(
                 name = it.id,
                 location = it.get("location") as String,
                 thumbnailUri = thumbnailUri,
-                totalTables = it.get("totalTables") as Long
+                totalTables = it.get("totalTables") as Long,
+                school = it.get("school") as String
             )
         }
     }
