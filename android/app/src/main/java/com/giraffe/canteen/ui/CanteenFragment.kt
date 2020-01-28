@@ -45,6 +45,7 @@ class CanteenFragment : Fragment() {
         val location = arguments!!.getString("location")!!
         val thumbnail = Uri.parse(arguments!!.getString("thumbnail")!!)
         val totalTables = arguments!!.getLong("totalTables")
+        //val schools = arguments!!.getString("school")
 
         name_text_view.text = name
         location_text_view.text = location
@@ -57,6 +58,7 @@ class CanteenFragment : Fragment() {
             occupancy_progressbar.progress = (it*100/totalTables).toInt()
             occupancy_text_view.text = resources.getString(R.string.occupancy, it, totalTables)
         })
+        //school_text_view.text = schools
 
         // Set the button on click listener
         view_map_button.setOnClickListener {

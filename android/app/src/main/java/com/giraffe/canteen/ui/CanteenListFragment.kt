@@ -51,6 +51,7 @@ class CanteenListFragment : Fragment() {
             args.putString("location", it.location)
             args.putString("thumbnail", it.thumbnailUri.toString())
             args.putLong("totalTables", it.totalTables)
+            //args.putString("school", it.school)
             findNavController().navigate(R.id.action_canteenListFragment_to_canteenFragment, args)
         }
 

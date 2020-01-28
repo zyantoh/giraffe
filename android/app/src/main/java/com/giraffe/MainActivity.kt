@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
-                        findViewById<TextView>(R.id.latTextView).text = location.latitude.toString()
-                        findViewById<TextView>(R.id.lonTextView).text = location.longitude.toString()
+//                        findViewById<TextView>(R.id.latTextView).text = location.latitude.toString()
+//                        findViewById<TextView>(R.id.lonTextView).text = location.longitude.toString()
                     }
                 }
             } else {
@@ -81,8 +81,8 @@ class MainActivity : AppCompatActivity() {
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             var mLastLocation: Location = locationResult.lastLocation
-            findViewById<TextView>(R.id.latTextView).text = mLastLocation.latitude.toString()
-            findViewById<TextView>(R.id.lonTextView).text = mLastLocation.longitude.toString()
+//            findViewById<TextView>(R.id.latTextView).text = mLastLocation.latitude.toString()
+//            findViewById<TextView>(R.id.lonTextView).text = mLastLocation.longitude.toString()
         }
     }
 
