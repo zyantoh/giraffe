@@ -4,11 +4,10 @@ import android.net.Uri
 
 
 data class Canteen(
+    val id: String,
     val name: String,
-    val location: String,
+    val location: Location,
     val thumbnailUri: Uri,
     val totalTables: Long,
-    val school: String
-) {
-    var tables: Map<String, Table>? = null
-}
+    val school: School
+)
