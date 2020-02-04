@@ -1,5 +1,6 @@
 package com.giraffe.canteen.data
 
+import android.net.Uri
 import androidx.lifecycle.*
 import com.giraffe.canteen.model.Canteen
 import com.giraffe.canteen.model.Location
@@ -7,7 +8,9 @@ import com.giraffe.canteen.model.School
 import com.giraffe.database.DatabaseService
 import com.giraffe.database.DbDocument
 import com.giraffe.database.DbDocumentSnapshot
+import com.giraffe.database.firestore.FirestoreDocument
 import com.giraffe.storage.StorageService
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.GeoPoint
 
 class CanteenRepository(
@@ -23,7 +26,13 @@ class CanteenRepository(
     }
 
     suspend fun mapSnapshotToCanteen(snapshot: DbDocumentSnapshot): Canteen {
-        val thumbnailUri = storageService.getURI(snapshot.get("thumbnail") as String)
+        val thumbnailName = snapshot.get("thumbnail")
+
+        val thumbnailUri: Uri? = if (snapshot.get("thumbnail") == null) {
+            null
+        } else {
+            storageService.getURI(snapshot.get("thumbnail") as String)
+        }
 
         // NOTE: This part of the code is specific to Firestore (using Geopoint)
         val geopoint = snapshot.get("location") as GeoPoint
@@ -32,8 +41,7 @@ class CanteenRepository(
             longitude = geopoint.longitude
         )
 
-        // TODO: Check if this works, underlying type is Firestore DbDocRef
-        val school = getSchoolDetails(snapshot.get("school") as DbDocument)
+        val school = getSchoolDetails(FirestoreDocument(snapshot.get("school") as DocumentReference))
 
         return Canteen(
             id = snapshot.id,
@@ -63,9 +71,9 @@ class CanteenRepository(
     }
 
     fun watchCanteenOccupancy(
-        canteenName: String
+        canteenId: String
     ): LiveData<Long> {
-        val document = databaseService.collection("canteens").document(canteenName).watch()
+        val document = databaseService.collection("canteens").document(canteenId).watch()
         return Transformations.map(document) {
             it["occupiedTables"] as Long
         }
