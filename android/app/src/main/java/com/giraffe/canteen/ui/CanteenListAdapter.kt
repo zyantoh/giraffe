@@ -117,6 +117,7 @@ class CanteenListAdapter(
     fun setCanteens(newCanteenList: List<Canteen>, newCanteenOccupancy: List<LiveData<Long>>) {
         canteens = newCanteenList
         canteenOccupancy = newCanteenOccupancy
+        headers = mutableListOf()
 
         // Group the canteens by their schools
         val schools = HashSet<String>()

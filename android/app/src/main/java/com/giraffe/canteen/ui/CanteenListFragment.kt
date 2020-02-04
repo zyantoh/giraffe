@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -60,9 +61,30 @@ class CanteenListFragment : Fragment() {
         // Set an observer on the canteen list LiveData for when the data is ready
         canteenListViewModel.canteenList.observe(this, Observer<List<Canteen>>{
             viewAdapter.setCanteens(it, canteenListViewModel.canteenOccupancy)
-            viewAdapter.notifyDataSetChanged()
         })
 
         canteen_list_exp_list_view.setAdapter(viewAdapter)
+
+        // Search
+        val queryListener: SearchView.OnQueryTextListener = object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Filter the data shown
+                val filteredOccupancy = mutableListOf<LiveData<Long>>()
+                val filteredList = mutableListOf<Canteen>()
+
+                canteenListViewModel.canteenList.value?.forEachIndexed { index, canteen ->
+                    if (canteen.name.toLowerCase().contains(query?.toLowerCase() ?: "") && canteenListViewModel.canteenList.value != null) {
+                        filteredOccupancy.add(canteenListViewModel.canteenOccupancy[index])
+                        filteredList.add(canteenListViewModel.canteenList.value!![index])
+                    }
+                }
+
+                viewAdapter.setCanteens(filteredList, filteredOccupancy)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean = false
+        }
+        canteen_list_searchView.setOnQueryTextListener(queryListener)
     }
 }
