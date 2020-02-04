@@ -27,16 +27,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/image_text_space"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/location_text_view"
-            style="@style/ListItemTitle" />
-
-        <TextView
-            android:id="@+id/location_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/image_text_space"
-            app:layout_constraintTop_toBottomOf="@id/name_text_view"
-            app:layout_constraintBottom_toTopOf="@id/occupancy_progressbar" />
+            app:layout_constraintBottom_toTopOf="@id/occupancy_progressbar"
+            style="@style/ListItemSubTitle" />
 
         <ProgressBar
             android:id="@+id/occupancy_progressbar"
@@ -45,7 +37,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             app:layout_constraintStart_toEndOf="@id/image_text_space"
             app:layout_constraintEnd_toStartOf="@id/progress_occupancy_space"
-            app:layout_constraintTop_toBottomOf="@id/location_text_view"
+            app:layout_constraintTop_toBottomOf="@id/name_text_view"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <Space

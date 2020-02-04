@@ -24,7 +24,7 @@ class CanteenListViewModel(
         uiScope.launch {
             val canteens = canteenRepository.getCanteenDetails()
             canteens.forEach {
-                canteenOccupancy.add(canteenRepository.watchCanteenOccupancy(it.name))
+                canteenOccupancy.add(canteenRepository.watchCanteenOccupancy(it.id))
             }
             canteenList.postValue(canteens)
         }

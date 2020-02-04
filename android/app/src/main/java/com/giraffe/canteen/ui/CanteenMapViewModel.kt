@@ -2,7 +2,6 @@ package com.giraffe.canteen.ui
 
 import androidx.lifecycle.*
 import com.giraffe.canteen.data.CanteenRepository
-import com.giraffe.canteen.model.Table
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,14 +20,9 @@ class CanteenMapViewModel(
     val canteenLocation: String = savedStateHandle.get("location") ?:
         throw IllegalArgumentException("CanteenMapViewModel is missing 'location' argument")
 
-    var tables: MutableLiveData<List<LiveData<Table>>> = MutableLiveData()
-
     init {
         uiScope.launch {
             val tableIds = canteenRepository.getTableIds(canteenName)
-            tables.postValue(tableIds.map {
-                canteenRepository.watchCanteenTable(canteenName, it)
-            })
         }
     }
 

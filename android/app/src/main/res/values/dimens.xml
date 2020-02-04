@@ -2,6 +2,6 @@
 <resources>
     <dimen name="listItemPadding">16dp</dimen>
     <dimen name="contentMargin">16dp</dimen>
-    <dimen name="sizePrimaryText">30sp</dimen>
-    <dimen name="sizeSecondaryText">25sp</dimen>
+    <dimen name="sizePrimaryText">25sp</dimen>
+    <dimen name="sizeSecondaryText">20sp</dimen>
 </resources>
