@@ -1,24 +1,30 @@
 package com.giraffe.canteen.ui
 
+import android.Manifest
+import android.content.Context.LOCATION_SERVICE
+import android.content.pm.PackageManager
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.giraffe.R
 import com.giraffe.canteen.data.CanteenRepository
 import com.giraffe.canteen.model.Canteen
 import com.giraffe.canteen.model.Location
-import com.giraffe.canteen.model.School
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_canteen_list.*
 import org.koin.android.ext.android.inject
 
@@ -41,6 +47,30 @@ class CanteenListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return layoutInflater.inflate(R.layout.fragment_canteen_list, container, false)
+    }
+
+    private fun filterByLocation(currentLocation: Location, viewAdapter: CanteenListAdapter) {
+        // Calculate the top 5 closest canteens
+        if (canteenListViewModel.canteenList.value == null) {
+            return
+        }
+
+        var closestCanteens = canteenListViewModel.canteenList.value!!.indices.sortedWith(
+            compareBy({ canteenListViewModel.canteenList.value!![it].location.distance(currentLocation) })
+        )
+
+        if (closestCanteens.size > 3) {
+            closestCanteens = closestCanteens.subList(0, 3)
+        }
+
+        val closestOccupancy = mutableListOf<LiveData<Long>>()
+        val closestList = mutableListOf<Canteen>()
+        closestCanteens.forEach {
+            closestOccupancy.add(canteenListViewModel.canteenOccupancy[it])
+            closestList.add(canteenListViewModel.canteenList.value!![it])
+        }
+
+        viewAdapter.setCanteens(closestList, closestOccupancy)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,5 +116,50 @@ class CanteenListFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean = false
         }
         canteen_list_searchView.setOnQueryTextListener(queryListener)
+
+        // FAB
+        canteen_list_fab.setOnClickListener {
+            val snackbar = Snackbar.make(view, "Displaying canteens closest to you...", Snackbar.LENGTH_INDEFINITE)
+            snackbar.show()
+
+            val locationManager = context!!.getSystemService(LOCATION_SERVICE) as LocationManager
+            val locationListener = object: LocationListener {
+                override fun onLocationChanged(location: android.location.Location?) {
+                    if (location == null) {
+                        return
+                    }
+
+                    val currentLocation = Location(
+                        latitude = location.latitude,
+                        longitude = location.longitude
+                    )
+
+                    filterByLocation(currentLocation, viewAdapter)
+                    locationManager.removeUpdates(this)
+                    snackbar.dismiss()
+                }
+
+                override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {}
+
+                override fun onProviderEnabled(p0: String?) {}
+
+                override fun onProviderDisabled(p0: String?) {}
+            }
+
+
+            val permissionAccessFineLocationApproved = ActivityCompat
+                .checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED
+
+            if (permissionAccessFineLocationApproved) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0.0f, locationListener)
+            } else {
+                // App doesn't have access to the device's location at all. Make full request
+                // for permission.
+                ActivityCompat.requestPermissions(activity!!,
+                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
+            }
+
+        }
     }
 }
