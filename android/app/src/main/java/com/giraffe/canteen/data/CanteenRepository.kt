@@ -15,7 +15,6 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.joinAll
 
 class CanteenRepository(
     private val databaseService: DatabaseService,
@@ -37,8 +36,6 @@ class CanteenRepository(
     }
 
     suspend fun mapSnapshotToCanteen(snapshot: DbDocumentSnapshot): Canteen = coroutineScope {
-        val thumbnailName = snapshot.get("thumbnail")
-
         val thumbnailUri: Uri? = if (snapshot.get("thumbnail") == null) {
             null
         } else {
@@ -76,7 +73,6 @@ class CanteenRepository(
         )
     }
 
-
     suspend fun getCanteenDetails(): List<Canteen> = coroutineScope {
         val canteenDocuments = databaseService.collection("canteens").get()
         // Retrieve all the canteens and convert them to canteen objects
@@ -89,14 +85,7 @@ class CanteenRepository(
         canteenDeferred.map { it.await() }
     }
 
-    suspend fun getTableIds(canteenName: String): List<String> {
-        val tableDocuments = databaseService
-            .collection("canteens")
-            .document(canteenName)
-            .collection("tables")
-            .get()
-        return tableDocuments.map { it.id }
-    }
+    suspend fun getOccupancyUri(canteen: Canteen) : Uri = storageService.getURI("canteens/${canteen.id}.jpg")
 
     fun watchCanteenOccupancy(
         canteenId: String

@@ -3,51 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/contentMargin">
+    android:layout_height="match_parent" >
 
     <TextView
         android:id="@+id/canteen_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/ListItemTitle"
+        android:layout_margin="@dimen/listItemPadding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/canteen_location_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/ListItemSubTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/canteen_name_text_view" />
-
-    <ImageView
-        android:id="@+id/table_1_image_view"
-        android:layout_width="100dp"
-        android:layout_height="180dp"
-        app:layout_constraintTop_toTopOf="parent"
+    <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/canteen_map_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/canteen_name_text_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/green" />
-
-    <ImageView
-        android:id="@+id/table_2_image_view"
-        android:layout_width="100dp"
-        android:layout_height="180dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/table_3_image_view"
-        app:layout_constraintStart_toEndOf="@+id/table_1_image_view"
-        app:srcCompat="@drawable/green" />
-
-    <ImageView
-        android:id="@+id/table_3_image_view"
-        android:layout_width="100dp"
-        android:layout_height="180dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/green" />
+        android:src="@drawable/green"
+        app:zoomage_restrictBounds="false"
+        app:zoomage_animateOnReset="true"
+        app:zoomage_autoResetMode="UNDER"
+        app:zoomage_autoCenter="true"
+        app:zoomage_zoomable="true"
+        app:zoomage_translatable="true"
+        app:zoomage_minScale="0.6"
+        app:zoomage_maxScale="8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
