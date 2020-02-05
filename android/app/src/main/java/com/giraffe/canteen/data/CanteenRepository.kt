@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.giraffe.canteen.model.Canteen
 import com.giraffe.canteen.model.Location
 import com.giraffe.canteen.model.School
+import com.giraffe.canteen.model.Stall
 import com.giraffe.database.DatabaseService
 import com.giraffe.database.DbDocument
 import com.giraffe.database.DbDocumentSnapshot
@@ -12,6 +13,9 @@ import com.giraffe.database.firestore.FirestoreDocument
 import com.giraffe.storage.StorageService
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.GeoPoint
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.joinAll
 
 class CanteenRepository(
     private val databaseService: DatabaseService,
@@ -25,7 +29,14 @@ class CanteenRepository(
         )
     }
 
-    suspend fun mapSnapshotToCanteen(snapshot: DbDocumentSnapshot): Canteen {
+    suspend fun getStallDetails(document: DbDocument): Stall {
+        val snapshot = document.get()
+        return Stall(
+            name = snapshot.get("name") as String
+        )
+    }
+
+    suspend fun mapSnapshotToCanteen(snapshot: DbDocumentSnapshot): Canteen = coroutineScope {
         val thumbnailName = snapshot.get("thumbnail")
 
         val thumbnailUri: Uri? = if (snapshot.get("thumbnail") == null) {
@@ -42,23 +53,40 @@ class CanteenRepository(
         )
 
         val school = getSchoolDetails(FirestoreDocument(snapshot.get("school") as DocumentReference))
+        val stallDeferred = if (snapshot.get("stalls") == null) {
+            null
+        } else {
+            (snapshot.get("stalls") as List<DocumentReference>).map {
+                async {
+                    getStallDetails(FirestoreDocument(it))
+                }
+            }
+        }
 
-        return Canteen(
+        val stalls = stallDeferred?.map { it.await() }
+
+        Canteen(
             id = snapshot.id,
             name = snapshot.get("name") as String,
             location = location,
             thumbnailUri = thumbnailUri,
             totalTables = snapshot.get("totalTables") as Long,
-            school = school
+            school = school,
+            stalls = stalls
         )
     }
 
 
-    suspend fun getCanteenDetails(): List<Canteen> {
+    suspend fun getCanteenDetails(): List<Canteen> = coroutineScope {
         val canteenDocuments = databaseService.collection("canteens").get()
         // Retrieve all the canteens and convert them to canteen objects
-        // TODO: Make this faster by using coroutines
-        return canteenDocuments.map { mapSnapshotToCanteen(it) }
+        val canteenDeferred = canteenDocuments.map {
+            async {
+                mapSnapshotToCanteen(it)
+            }
+        }
+
+        canteenDeferred.map { it.await() }
     }
 
     suspend fun getTableIds(canteenName: String): List<String> {
