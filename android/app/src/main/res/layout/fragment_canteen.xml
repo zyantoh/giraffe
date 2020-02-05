@@ -74,7 +74,8 @@
         style="@style/ListItemSubTitle"
         android:text="@string/canteen_stalls" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
+        android:id="@+id/canteen_stall_list_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/canteen_stall_textView"
