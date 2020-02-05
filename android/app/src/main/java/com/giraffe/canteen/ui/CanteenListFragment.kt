@@ -6,17 +6,13 @@ import android.content.pm.PackageManager
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -80,11 +76,7 @@ class CanteenListFragment : Fragment() {
         val viewAdapter = CanteenListAdapter(this, context!!, mutableListOf(), mutableListOf()) {
             // Navigate to canteen fragment
             val args = Bundle()
-            args.putString("name", it.name)
-//            args.putString("location", it.location)
-            args.putString("thumbnail", it.thumbnailUri.toString())
-            args.putLong("totalTables", it.totalTables)
-            //args.putString("school", it.school)
+            args.putParcelable("canteen", it)
             findNavController().navigate(R.id.action_canteenListFragment_to_canteenFragment, args)
         }
 

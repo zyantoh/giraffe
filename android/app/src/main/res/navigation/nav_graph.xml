@@ -19,21 +19,12 @@
         android:id="@+id/canteenFragment"
         android:name="com.giraffe.canteen.ui.CanteenFragment"
         android:label="CanteenFragment" >
-        <argument
-            android:name="name"
-            app:argType="string" />
-        <argument
-            android:name="location"
-            app:argType="string" />
-        <argument
-            android:name="thumbnail"
-            app:argType="string" />
-        <argument
-            android:name="totalTables"
-            app:argType="long" />
         <action
             android:id="@+id/action_canteenFragment_to_canteenMapFragment"
             app:destination="@id/canteenMapFragment" />
+        <argument
+            android:name="canteen"
+            app:argType="com.giraffe.canteen.model.Canteen" />
     </fragment>
     <fragment
         android:id="@+id/canteenMapFragment"

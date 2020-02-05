@@ -4,7 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class School(
-    val id: String,
+data class Stall(
     val name: String
 ) : Parcelable
